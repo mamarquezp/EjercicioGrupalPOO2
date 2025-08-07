@@ -39,42 +39,81 @@ namespace EjercicioGrupalPOO2
             Evento claseMatematicas = new Clase("Clase de Matemáticas", new DateTime(2025, 8, 10, 9, 0, 0), TimeSpan.FromHours(2));//fecha en AAAA,MM,DD,HH,MM,SS (formato de 24hrs) duración en h
             Evento congresoIA = new Conferencia("Congreso de Inteligencia Artificial", new DateTime(2025, 8, 15, 10, 0, 0), TimeSpan.FromHours(4));
             Evento practicaRedes = new Practica("Práctica de Redes", new DateTime(2025, 8, 12, 14, 0, 0), TimeSpan.FromHours(3));
+            Evento practicaProgramacion = new Practica("Práctica de Programación", new DateTime(2025, 8, 12, 14, 0, 0), TimeSpan.FromHours(2));
 
             Console.WriteLine("--- Realizando reservas ---");
 
-            bool reserva1Exitosa = salas[1].Reservar(congresoIA);
-            if (reserva1Exitosa)
+            var reserva1 = new Reserva(salas[1], congresoIA);
+            if (salas[1].Reservar(congresoIA))
             {
-                todasLasReservas.Add(new Reserva(salas[1], congresoIA));
+                reserva1.Estado = EstadoReserva.Confirmada;
+                todasLasReservas.Add(reserva1);
+            }
+            else
+            {
+                reserva1.Estado = EstadoReserva.Rechazada;
+                todasLasReservas.Add(reserva1);
+            }
+            
+            Console.WriteLine();
+
+            var reserva2 = new Reserva(salas[1], claseMatematicas);
+            if (salas[1].Reservar(claseMatematicas))
+            {
+                reserva2.Estado = EstadoReserva.Confirmada;
+                todasLasReservas.Add(reserva2);
+            }
+            else
+            {
+                reserva2.Estado = EstadoReserva.Rechazada;
+                todasLasReservas.Add(reserva2);
             }
 
             Console.WriteLine();
 
-            bool reserva2Exitosa = salas[1].Reservar(claseMatematicas);
-            if (reserva2Exitosa)
+            var reserva3 = new Reserva(salas[2], practicaRedes);
+            if (salas[2].Reservar(practicaRedes))
             {
-                todasLasReservas.Add(new Reserva(salas[1], claseMatematicas));
+                reserva3.Estado = EstadoReserva.Confirmada;
+                todasLasReservas.Add(reserva3);
+            }
+            else
+            {
+                reserva3.Estado = EstadoReserva.Rechazada;
+                todasLasReservas.Add(reserva3);
+            }
+            
+            Console.WriteLine();
+
+            var reserva4 = new Reserva(salas[2], practicaProgramacion);
+            if (salas[2].Reservar(practicaRedes))
+            {
+                reserva4.Estado = EstadoReserva.Confirmada;
+                todasLasReservas.Add(reserva4);
+            }
+            else
+            {
+                reserva4.Estado = EstadoReserva.Rechazada;
+                todasLasReservas.Add(reserva4);
             }
 
             Console.WriteLine();
 
-            bool reserva3Exitosa = salas[2].Reservar(practicaRedes);
-            if (reserva3Exitosa)
+            var reserva5 = new Reserva(salas[0], claseMatematicas);
+            if (salas[0].Reservar(practicaRedes))
             {
-                todasLasReservas.Add(new Reserva(salas[2], practicaRedes));
+                reserva5.Estado = EstadoReserva.Confirmada;
+                todasLasReservas.Add(reserva5);
+            }
+            else
+            {
+                reserva5.Estado = EstadoReserva.Rechazada;
+                todasLasReservas.Add(reserva5);
             }
 
             Console.WriteLine();
 
-            bool reserva4Exitosa = salas[0].Reservar(claseMatematicas);
-            if (reserva4Exitosa)
-            {
-                todasLasReservas.Add(new Reserva(salas[0], claseMatematicas));
-            }
-
-            Console.WriteLine();
-
-            Console.WriteLine("--- Listado de Reservas Exitosas ---");
+            Console.WriteLine("--- Listado de Reservas ---");
             foreach (var reserva in todasLasReservas)
             {
                 reserva.Mostrar();

@@ -24,6 +24,25 @@ namespace EjercicioGrupalPOO2.Clases
         }
 
         public abstract bool Reservar(Evento evento);
+
+        protected bool ValidarDisponibilidad(Evento nuevoEvento) //valida si hay disponibilidad
+        {
+            DateTime inicioNuevoEvento = nuevoEvento.FechaDelEvento;
+            DateTime finNuevoEvento = inicioNuevoEvento + nuevoEvento.DuracionDelEvento;
+
+            foreach (var reservaExistente in Reservas)
+            {
+                DateTime inicioExistente = reservaExistente.Evento.FechaDelEvento;
+                DateTime finExistente = inicioExistente + reservaExistente.Evento.DuracionDelEvento;
+
+                if (inicioNuevoEvento < finExistente && finNuevoEvento > inicioExistente)
+                {
+                    Console.WriteLine($"Error: La sala ya está ocupada en el horario solicitado ({inicioExistente:HH:mm} - {finExistente:HH:mm}).");
+                    return false; // no disponible
+                }
+            }
+            return true; // disponible
+        }
     }
 
     public class SalaComun : Sala
@@ -44,9 +63,19 @@ namespace EjercicioGrupalPOO2.Clases
             {
                 Console.WriteLine("Esta sala no es ideal para conferencias grandes");
             }
-            Reservas.Add(new Reserva(this, evento));
-            Console.WriteLine("Reserva confirmada");
-            return true;
+            if (ValidarDisponibilidad(evento))//valida disponibilidad previo a reservar
+            {
+                var nuevaReserva = new Reserva(this, evento);
+                nuevaReserva.Estado = EstadoReserva.Confirmada;
+                Reservas.Add(nuevaReserva);
+                Console.WriteLine("Reserva confirmada");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Reserva rechazada, la sala ya está ocupada");
+                return false;
+            }
         }
     }
 
@@ -66,9 +95,17 @@ namespace EjercicioGrupalPOO2.Clases
 
             if (evento is Conferencia)
             {
-                Reservas.Add(new Reserva(this, evento));
-                Console.WriteLine("Reserva confirmada");
-                return true;
+                if (ValidarDisponibilidad(evento))//valida disponibilidad previo a reservar
+                {
+                    Reservas.Add(new Reserva(this, evento));
+                    Console.WriteLine("Reserva confirmada");
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("Reserva rechazada, la sala ya está ocupada");
+                    return false;
+                }
             }
             else
             {
@@ -94,9 +131,17 @@ namespace EjercicioGrupalPOO2.Clases
 
             if (evento is Practica)
             {
-                Reservas.Add(new Reserva(this, evento));
-                Console.WriteLine("Reserva confirmada");
-                return true;
+                if (ValidarDisponibilidad(evento))//valida disponibilidad previo a reservar
+                {
+                    Reservas.Add(new Reserva(this, evento));
+                    Console.WriteLine("Reserva confirmada");
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("Reserva rechazada, la sala ya está ocupada");
+                    return false;
+                }
             }
             else
             {

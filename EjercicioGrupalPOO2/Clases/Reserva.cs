@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EjercicioGrupalPOO2.Clases
 {
-    public enum EstadoReserva { Pendiente, Confirmada, Rechazada }
+    public enum EstadoReserva { Pendiente, Confirmada, Rechazada } 
 
     public class Reserva
     {
