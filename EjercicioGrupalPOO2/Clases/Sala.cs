@@ -23,7 +23,7 @@ namespace EjercicioGrupalPOO2.Clases
             Reservas = new List<Reserva>();
         }
 
-        public abstract bool Reservar(Evento evento);
+        public abstract bool Reservar(Evento evento, Organizador organizador);
 
         protected bool ValidarDisponibilidad(Evento nuevoEvento) //valida si hay disponibilidad
         {
@@ -55,7 +55,7 @@ namespace EjercicioGrupalPOO2.Clases
             TieneProyector = tieneProyector;
         }
 
-        public override bool Reservar(Evento evento)
+        public override bool Reservar(Evento evento, Organizador organizador)
         {
             Console.WriteLine($"Intentando reservar la SalaComun {Nombre} para el evento: {evento.TituloDelEvento}");
 
@@ -65,7 +65,7 @@ namespace EjercicioGrupalPOO2.Clases
             }
             if (ValidarDisponibilidad(evento))//valida disponibilidad previo a reservar
             {
-                var nuevaReserva = new Reserva(this, evento);
+                var nuevaReserva = new Reserva(this, evento, organizador);
                 nuevaReserva.Estado = EstadoReserva.Confirmada;
                 Reservas.Add(nuevaReserva);
                 Console.WriteLine("Reserva confirmada");
@@ -89,7 +89,7 @@ namespace EjercicioGrupalPOO2.Clases
             TieneEquipoDeSonido = tieneEquipoDeSonido;
         }
 
-        public override bool Reservar(Evento evento)
+        public override bool Reservar(Evento evento, Organizador organizador)
         {
             Console.WriteLine($"Intentando reservar el Auditorio {Nombre} para el evento: {evento.TituloDelEvento}");
 
@@ -97,7 +97,7 @@ namespace EjercicioGrupalPOO2.Clases
             {
                 if (ValidarDisponibilidad(evento))//valida disponibilidad previo a reservar
                 {
-                    Reservas.Add(new Reserva(this, evento));
+                    Reservas.Add(new Reserva(this, evento, organizador));
                     Console.WriteLine("Reserva confirmada");
                     return true;
                 }
@@ -125,7 +125,7 @@ namespace EjercicioGrupalPOO2.Clases
             CantidadDeComputadoras = cantidadDeComputadoras;
         }
 
-        public override bool Reservar(Evento evento)
+        public override bool Reservar(Evento evento, Organizador organizador)
         {
             Console.WriteLine($"Intentando reservar el Laboratorio {Nombre} para el evento: {evento.TituloDelEvento}");
 
@@ -133,7 +133,7 @@ namespace EjercicioGrupalPOO2.Clases
             {
                 if (ValidarDisponibilidad(evento))//valida disponibilidad previo a reservar
                 {
-                    Reservas.Add(new Reserva(this, evento));
+                    Reservas.Add(new Reserva(this, evento, organizador));
                     Console.WriteLine("Reserva confirmada");
                     return true;
                 }

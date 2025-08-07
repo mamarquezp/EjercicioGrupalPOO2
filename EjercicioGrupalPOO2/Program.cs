@@ -34,6 +34,9 @@ namespace EjercicioGrupalPOO2
             salas.Add(new Auditorio("Auditorio Central", 200, "Edificio de Conferencia", true));
             salas.Add(new Laboratorio("Lab de Computación", 25, "Edificio de Ingeniería", 25));
 
+            Organizador organizador1 = new Organizador("Diego Gómez", "diego.gomez@email.com", "Notas privadas de evento");
+            Organizador organizador2 = new Organizador("Mike Márquez", "mike.marquez@email.com", "Notas privadas de Mike");
+
             List<Reserva> todasLasReservas = new List<Reserva>(); //para guardar todas las reservas
 
             Evento claseMatematicas = new Clase("Clase de Matemáticas", new DateTime(2025, 8, 10, 9, 0, 0), TimeSpan.FromHours(2));//fecha en AAAA,MM,DD,HH,MM,SS (formato de 24hrs) duración en h
@@ -43,8 +46,8 @@ namespace EjercicioGrupalPOO2
 
             Console.WriteLine("--- Realizando reservas ---");
 
-            var reserva1 = new Reserva(salas[1], congresoIA);
-            if (salas[1].Reservar(congresoIA))
+            var reserva1 = new Reserva(salas[1], congresoIA, organizador1);
+            if (salas[1].Reservar(congresoIA, organizador1))
             {
                 reserva1.Estado = EstadoReserva.Confirmada;
                 todasLasReservas.Add(reserva1);
@@ -57,8 +60,8 @@ namespace EjercicioGrupalPOO2
             
             Console.WriteLine();
 
-            var reserva2 = new Reserva(salas[1], claseMatematicas);
-            if (salas[1].Reservar(claseMatematicas))
+            var reserva2 = new Reserva(salas[1], claseMatematicas, organizador1);
+            if (salas[1].Reservar(claseMatematicas, organizador1))
             {
                 reserva2.Estado = EstadoReserva.Confirmada;
                 todasLasReservas.Add(reserva2);
@@ -71,8 +74,8 @@ namespace EjercicioGrupalPOO2
 
             Console.WriteLine();
 
-            var reserva3 = new Reserva(salas[2], practicaRedes);
-            if (salas[2].Reservar(practicaRedes))
+            var reserva3 = new Reserva(salas[2], practicaRedes, organizador2);
+            if (salas[2].Reservar(practicaRedes, organizador2))
             {
                 reserva3.Estado = EstadoReserva.Confirmada;
                 todasLasReservas.Add(reserva3);
@@ -85,8 +88,8 @@ namespace EjercicioGrupalPOO2
             
             Console.WriteLine();
 
-            var reserva4 = new Reserva(salas[2], practicaProgramacion);
-            if (salas[2].Reservar(practicaRedes))
+            var reserva4 = new Reserva(salas[2], practicaProgramacion, organizador2);
+            if (salas[2].Reservar(practicaRedes, organizador2))
             {
                 reserva4.Estado = EstadoReserva.Confirmada;
                 todasLasReservas.Add(reserva4);
@@ -99,8 +102,8 @@ namespace EjercicioGrupalPOO2
 
             Console.WriteLine();
 
-            var reserva5 = new Reserva(salas[0], claseMatematicas);
-            if (salas[0].Reservar(practicaRedes))
+            var reserva5 = new Reserva(salas[0], claseMatematicas, organizador1);
+            if (salas[0].Reservar(practicaRedes, organizador1))
             {
                 reserva5.Estado = EstadoReserva.Confirmada;
                 todasLasReservas.Add(reserva5);
