@@ -21,3 +21,64 @@ Debe usarse una colección polimórfica para manejar y ejecutar las reservas.
 Sugerencia: Podrían agregar una clase Evento con subclases o polimorfismo para definir distintos
 comportamientos según el tipo de evento.
 */
+using EjercicioGrupalPOO2.Clases;
+
+namespace EjercicioGrupalPOO2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Sala> salas = new List<Sala>();
+            salas.Add(new SalaComun("Aula 101", 30, "Edificio A", true));
+            salas.Add(new Auditorio("Auditorio Central", 200, "Edificio de Conferencia", true));
+            salas.Add(new Laboratorio("Lab de Computación", 25, "Edificio de Ingeniería", 25));
+
+            List<Reserva> todasLasReservas = new List<Reserva>(); //para guardar todas las reservas
+
+            Evento claseMatematicas = new Clase("Clase de Matemáticas", new DateTime(2025, 8, 10, 9, 0, 0), TimeSpan.FromHours(2));//fecha en AAAA,MM,DD,HH,MM,SS (formato de 24hrs) duración en h
+            Evento congresoIA = new Conferencia("Congreso de Inteligencia Artificial", new DateTime(2025, 8, 15, 10, 0, 0), TimeSpan.FromHours(4));
+            Evento practicaRedes = new Practica("Práctica de Redes", new DateTime(2025, 8, 12, 14, 0, 0), TimeSpan.FromHours(3));
+
+            Console.WriteLine("--- Realizando reservas ---");
+
+            bool reserva1Exitosa = salas[1].Reservar(congresoIA);
+            if (reserva1Exitosa)
+            {
+                todasLasReservas.Add(new Reserva(salas[1], congresoIA));
+            }
+
+            Console.WriteLine();
+
+            bool reserva2Exitosa = salas[1].Reservar(claseMatematicas);
+            if (reserva2Exitosa)
+            {
+                todasLasReservas.Add(new Reserva(salas[1], claseMatematicas));
+            }
+
+            Console.WriteLine();
+
+            bool reserva3Exitosa = salas[2].Reservar(practicaRedes);
+            if (reserva3Exitosa)
+            {
+                todasLasReservas.Add(new Reserva(salas[2], practicaRedes));
+            }
+
+            Console.WriteLine();
+
+            bool reserva4Exitosa = salas[0].Reservar(claseMatematicas);
+            if (reserva4Exitosa)
+            {
+                todasLasReservas.Add(new Reserva(salas[0], claseMatematicas));
+            }
+
+            Console.WriteLine();
+
+            Console.WriteLine("--- Listado de Reservas Exitosas ---");
+            foreach (var reserva in todasLasReservas)
+            {
+                reserva.Mostrar();
+            }
+        }
+    }
+}

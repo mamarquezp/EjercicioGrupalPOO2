@@ -9,38 +9,29 @@ namespace EjercicioGrupalPOO2.Clases
 {
     public class Evento
     {
-        // Propiedades del evento
-        public string TituloDelEvento { set; get; }
+        public string TituloDelEvento { get; set; }
+        public DateTime FechaDelEvento { get; set; }//para fecha
+        public TimeSpan DuracionDelEvento { get; set; }//para duración de evento
 
-        public DateTime fechaDelEvento { set; get; }
-
-        public TimeSpan duracionDelEvento { set; get; }
-        public Evento (string tituloDelEvento, DateTime fecha, TimeSpan duracion)
+        public Evento(string titulo, DateTime fecha, TimeSpan duracion)
         {
-            TituloDelEvento = tituloDelEvento;
-            fechaDelEvento = fecha;
-            duracionDelEvento = duracion;
+            TituloDelEvento = titulo;
+            FechaDelEvento = fecha;
+            DuracionDelEvento = duracion;
         }
     }
     public class Clase : Evento
     {
-        // Subclase para clase académica
-        public Clase(string tituloDelEvento, DateTime fecha, TimeSpan duracion)
-            : base(tituloDelEvento, fecha, duracion) { }
+        public Clase(string titulo, DateTime fecha, TimeSpan duracion) : base(titulo, fecha, duracion) { }
     }
 
     public class Conferencia : Evento
     {
-        // Subclase para clase comferencia
-        public Conferencia(string tituloDelEvento, DateTime fecha, TimeSpan duracion)
-            : base(tituloDelEvento, fecha, duracion) { }
+        public Conferencia(string titulo, DateTime fecha, TimeSpan duracion) : base(titulo, fecha, duracion) { }
     }
 
     public class Practica : Evento
     {
-        // Subclase para clase practica
-        public Practica(string tituloDelEvento, DateTime fecha, TimeSpan duracion)
-            : base(tituloDelEvento, fecha, duracion) { }
+        public Practica(string titulo, DateTime fecha, TimeSpan duracion) : base(titulo, fecha, duracion) { }
     }
-
 }
